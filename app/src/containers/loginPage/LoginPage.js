@@ -47,7 +47,8 @@ const LoginPage = () => {
   return (
     <LoadingPageContainer url={imageUrl}>
       <LoginNavBar />
-      <h2 style={textStyle}>{t("My text")}</h2>
+      <h2 style={textStyle}>{t("Millions of songs to choose from")}</h2>
+      <h2 style={textStyle}>{t("Free on Spotify")}</h2>
     </LoadingPageContainer>
   );
 };

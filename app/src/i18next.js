@@ -7,8 +7,6 @@ import translationFR from "./locales/fr/translation.json"
 import translationES from "./locales/es/translation.json"
 import LanguageDetector from "i18next-browser-languagedetector"
 
-const languages = ["en", "pt", "ru", "fr", "es", "de"]
-
 const resources = {
   en: {
     translation: translationEN
