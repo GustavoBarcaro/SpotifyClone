@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+
+import { useTranslation } from "react-i18next"
 
 import useWindowWidth from "../../hooks/useWindowWidth";
 import LoginNavBar from "./loginNavBar/LoginNavBar";
@@ -19,12 +21,33 @@ const LoadingPageContainer = styled.div`
 `;
 
 const LoginPage = () => {
+  let browserLang = window.navigator.userLanguage || window.navigator.language;
+  let modifiedLang = [];
+  const {t, i18n} = useTranslation()
+
+  useEffect(() => {
+    i18n.changeLanguage(browserLang)
+  }, [browserLang, i18n])
+
+  if (browserLang.length > 3){
+    modifiedLang = browserLang.split("")
+    modifiedLang.splice(2)
+    browserLang = modifiedLang.join("")
+  }
+
+  const textStyle = {
+    textAlign: "center",
+    fontSize: "30px",
+    color: "white"
+  }
+  
   const imageUrl =
     useWindowWidth() >= 768 ? backgroundDesktop : backgroundMobile;
 
   return (
     <LoadingPageContainer url={imageUrl}>
       <LoginNavBar />
+      <h2 style={textStyle}>{t("My text")}</h2>
     </LoadingPageContainer>
   );
 };
