@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button"; 
 import { StylesProvider } from '@material-ui/core/styles';
+
+import { useTranslation } from "react-i18next"
 
 import useWindowWidth from "../../hooks/useWindowWidth";
 import LoginNavBar from "./loginNavBar/LoginNavBar";
@@ -63,6 +65,26 @@ const ButtonLogIn = styled(Button)`
 `
 
 const LoginPage = () => {
+  let browserLang = window.navigator.userLanguage || window.navigator.language;
+  let modifiedLang = [];
+  const {t, i18n} = useTranslation()
+
+  useEffect(() => {
+    i18n.changeLanguage(browserLang)
+  }, [browserLang, i18n])
+
+  if (browserLang.length > 3){
+    modifiedLang = browserLang.split("")
+    modifiedLang.splice(2)
+    browserLang = modifiedLang.join("")
+  }
+
+  const textStyle = {
+    textAlign: "center",
+    fontSize: "30px",
+    color: "white"
+  }
+  
   const imageUrl =
     useWindowWidth() >= 768 ? backgroundDesktop : backgroundMobile;
   
@@ -71,6 +93,8 @@ const LoginPage = () => {
   return (
     <LoadingPageContainer url={imageUrl} tamanho={sizeScreen}>
       <LoginNavBar />
+      <h2 style={textStyle}>{t("Millions of songs to choose from")}</h2>
+      <h2 style={textStyle}>{t("Free on Spotify")}</h2>
         <TextContainer tamanho={sizeScreen}>
           <Text style={{marginBottom: "-20px"}} tamanho={sizeScreen}>Milhões de músicas a sua escolha</Text>
           <Text tamanho={sizeScreen}>Grátis no spotify</Text>
